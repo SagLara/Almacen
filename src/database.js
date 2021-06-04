@@ -1,4 +1,4 @@
-const mysql = require('promise-mysql')
+const mysql = require('promise-mysql');
 
 const conn = mysql.createConnection({
     host: 'localhost',
@@ -6,7 +6,7 @@ const conn = mysql.createConnection({
     user: 'root',
     password: '',
     database: 'almacen_jis'
-})
+});
 
 /* conn.connect(function(err) {
     if (err) {

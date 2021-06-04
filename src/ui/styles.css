@@ -1,0 +1,12 @@
+.required {
+    color: crimson;
+    font-size: 16px;
+}
+
+.prod {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-items: center;
+}

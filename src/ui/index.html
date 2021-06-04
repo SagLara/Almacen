@@ -6,10 +6,120 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Almacen JIS </title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <h1> ALMACENN JIS, ELECTRON & MYSQL</h1>
+    <h1> ALMACENN JIS, INVENTARIO</h1>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 p-4 my-auto">
+                <p>Los campos con (<span class="required">*</span>) es obligatorio llenarlos</p>
+                <div class="prod">
+                    <form class="card card-body text-white bg-dark" id="productForm">
+                        <div class="form-group">
+                            <label for="nombre">Producto: <span class="required">*</span> </label>
+                            <input type="text" id="nombre" class="form-control" placeholder="Nombre del Producto" aria-describedby="helpId" autofocus required>
+                            <small id="helpId" class="text-muted">Ej: Esmalte , Lampara, Gomita</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Precio: <span class="required">*</span> </label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" id="precio" step="any" class="form-control" placeholder="Precio del Producto" aria-describedby="helpId" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+                                <!-- <div class="invalid-feedback">Se debe ingresar un valor correcto</div> -->
+                            </div>
+                            <small id="helpId" class="text-muted">Ej: 3800 </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Stock: <span class="required">*</span> </label>
+                            <input type="number" id="stock" class="form-control" placeholder="Cantidad del Producto" aria-describedby="helpId" required>
+                            <small id="helpId" class="text-muted">Ej: 12, 6, 2, 0</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria: <span class="required">*</span> </label>
+                            <div class="input-group">
+                                <select class="custom-select" id="categoria" aria-label="Seleccionar categoria del producto">
+                                <option selected>Selecione una categoria</option>
+                                <option value="1">Dulces</option>
+                                <option value="2">Cosméticos</option>
+                                <option value="3">Confección</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="button">
+                                        <i class="bi bi-clipboard-plus"></i>
+                                        Nueva
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <input type="text" id="categoria" class="form-control" placeholder="Categoria del Producto" aria-describedby="helpId" autofocus required> -->
+                            <small id="helpId" class="text-muted">Seleccione o cree una opción</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="marca">Marca:</label>
+                            <input type="text" id="marca" class="form-control" placeholder="Marca del Producto" aria-describedby="helpId" autofocus>
+                            <small id="helpId" class="text-muted">Ej: Venus, Colombina, Avon</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <input type="text" id="descripcion" class="form-control" placeholder="Descripción del Producto" aria-describedby="helpId" autofocus>
+                            <small id="helpId" class="text-muted">Ej: Información relevante o adicional del producto</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="referencia">Referencia:</label>
+                            <input type="text" id="referencia" class="form-control" placeholder="Referencia del Producto" aria-describedby="helpId" autofocus>
+                            <small id="helpId" class="text-muted">Ej: 12/80 , 240gramos, 1 Cabo, 120yardas</small>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                            <i class="bi bi-plus-circle mr-1"></i>Agregar
+                        </button>
+                    </form>
+                    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="position: relative;">
+
+                        <!-- Then put toasts within -->
+                        <div class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header bg-success text-white">
+                                <strong class="mr-auto">
+                                    <i class="bi bi-check-circle"></i>
+                                    Producto Creado
+                                </strong>
+                                <small>Hace 2 segundos</small>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="toast-body bg-dark text-white">
+                                <p id="create"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- Flexbox container for aligning the toasts -->
+
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </main>
+    <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 </body>
 
 </html>
