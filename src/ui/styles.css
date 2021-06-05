@@ -3,10 +3,43 @@
     font-size: 16px;
 }
 
+#create {
+    font-size: 18px;
+}
+
 .prod {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-around;
     justify-items: center;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-evenly;
+    word-break: break-word;
+}
+
+.card-footer {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.list {
+    height: 860px;
+    overflow-y: scroll;
+}
+
+.prod-info {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.crud {
+    font-weight: bold;
+    font-size: 18px;
 }

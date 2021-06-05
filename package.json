@@ -26,6 +26,7 @@
         "jquery": "^3.6.0",
         "popper.js": "^1.16.1",
         "promise-mysql": "^5.0.3",
-        "python-shell": "^3.0.0"
+        "python-shell": "^3.0.0",
+        "xmlhttprequest": "^1.8.0"
     }
 }
