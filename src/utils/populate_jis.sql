@@ -20,7 +20,7 @@ INSERT INTO `almacen_jis`.`producto`(`NOMBRE`,`PRECIO`,`STOCK`,`MARCA`,`DESCRIPC
 VALUES ('Esmalte Lila',2800,12,'','','',2);
 
 INSERT INTO `almacen_jis`.`producto`(`NOMBRE`,`PRECIO`,`STOCK`,`MARCA`,`DESCRIPCION`,`REFERENCIA`,`ID_CATEGORIA`)
-VALUES ('Aguja Maquina Familiar',850,16,'Singer','','12/80',3);
+VALUES ('Aguja Maquina Plana',850,16,'Singer','','12/80',3);
 
 
 --- Insercion de datos de tabla INFORME

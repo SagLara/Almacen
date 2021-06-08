@@ -1,11 +1,25 @@
 console.log("Holi");
 const productForm = document.getElementById('productForm');
-
+const Alert = require("electron-alert");
 const procesador = require('./procesarTexto');
+//const cate = require('./categoria');
 
+const { ipcMain, ipcRenderer } = require('electron');
 const { remote } = require('electron');
 const main = remote.require('./main');
 
+/* ipcMain.on('request-update-label-in-second-window', (event, arg) => {
+    // Solicitud para actualizar la etiqueta en el proceso de renderizado de la segunda ventana
+    // Enviaremos los mismos datos que se enviaron al proceso principal
+    // Nota: obviamente puede enviar el
+    secondWindow.webContents.send('action-update-label', arg);
+});
+let Data = {
+    message: "Hello World !"
+};
+
+// Trigger the event listener action to this event in the renderer process and send the data
+ipcRenderer.send('request-update-label-in-second-window', Data); */
 /*
     REVISAR CATEGORIAS
 */
@@ -25,6 +39,11 @@ const descProducto = document.getElementById('descripcion');
 const referencia = document.getElementById('referencia');
 
 const listProductos = document.getElementById('productos');
+const listCategorias = document.getElementById('categorias');
+
+const btnAdd = document.getElementById('newCategoria');
+btnAdd.addEventListener('click', agregarCategoria);
+
 
 productForm.addEventListener('submit', async(e) => {
     e.preventDefault();
@@ -99,7 +118,7 @@ function renderProductos(products) {
     products.forEach(prod => {
         listProductos.innerHTML += `
             <div class="card my-2">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header prods text-white bg-dark">
                     <h6 class="text-light"><b class="text-warning">Nombre:</b> ${prod.NOMBRE} 
                     &ensp; <b class="text-warning">Ref:</b> ${prod.REFERENCIA}</h6>
                 </div>
@@ -131,8 +150,9 @@ function renderProductos(products) {
 }
 
 async function borrarProducto(id) {
+
     let statement = "";
-    statement = "DELETE FROM producto WHERE ID_PRODUCTO = " + id;
+    statement = "DELETE FROM producto WHERE ID_PRODUCTO = " + id + " ;";
     console.log(statement);
     const response = confirm("¿Esta segur@ de eliminar este producto?");
     if (response) {
@@ -141,6 +161,12 @@ async function borrarProducto(id) {
         await procesador.writeDoc(statement);
         createAlert("Producto Eliminado", `Se elimino el producto de id: ${id}`, "danger");
         createToast("Producto Eliminado", `Se elimino el producto de id: ${id}`, "danger");
+        productForm.reset();
+        nombreProducto.focus();
+        console.log("llegue");
+        remote.getCurrentWindow().focus();
+    } else {
+        return;
     }
     return;
 }
@@ -161,13 +187,94 @@ async function editarProducto(id) {
 }
 
 
-const getProductos = async() => {
+const getProductos = (async() => {
     productos = await main.getProductos();
     renderProductos(productos);
+});
+
+const getCategorias = (async() => {
+    categorias = await main.getCategorias();
+    renderCategorias(categorias);
+    renderSelect(categorias);
+});
+
+function renderCategorias(categories) {
+    listCategorias.innerHTML = "";
+    categories.forEach(cat => {
+        listCategorias.innerHTML += `
+        <div class="row table">
+            <div class="col-md-2">
+            <h6 class="text-light">${cat.ID_CATEGORIA}</h6>
+            </div>
+            <div class="col-md-4">
+            <h6 class="text-light">${cat.NOMBRE}</h6>
+            </div>
+            <div class="col-md-4">
+            <p class="text-light">  ${cat.DESCRIPCION} </p>
+            </div>
+            <div class="col-md-2 opcions">
+                <button class="btn btn-danger" onclick="borrarCategoria(${cat.ID_CATEGORIA})">
+                    <i class="bi bi-trash"></i>
+                    <b class="text-light"> Borrar </b>
+                </button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+function renderSelect(categorias) {
+    categoria.innerHTML = `<option value="">Selecione una categoria</option>`;
+    categorias.forEach(cat => {
+        categoria.innerHTML += `
+                <option value="${cat.ID_CATEGORIA}">${cat.NOMBRE}</option>
+        `;
+    });
+}
+
+async function showCategory(id) {
+    console.info(typeof(id));
+    await main.categoryWindow();
+    /*  if (typeof(id) == 'object') {
+         console.log("agrego");
+         await cate.charge(-1);
+     } else {
+         console.log("edito");
+         await cate.charge(id);
+     } */
+}
+
+async function borrarCategoria(id) {
+    let statement = "";
+    statement = "DELETE FROM categoria WHERE ID_CATEGORIA = " + id + ";";
+    console.log(statement);
+    const response = confirm("¿Esta segur@ de eliminar esta categoria?");
+    if (response) {
+        await main.deleteCategoria(id);
+        await getCategorias();
+        await procesador.writeDoc(statement);
+        createAlert("Categoria Eliminado", `Se elimino la categoria de id: ${id}`, "danger");
+        createToast("Categoria Eliminado", `Se elimino la categoria de id: ${id}`, "danger");
+    }
+    return;
+}
+
+async function agregarCategoria() {
+    await showCategory(-1);
+}
+
+async function editarCategoria(id) {
+
+    console.log("RENDER");
+    await ipcRenderer.send('producto:editar', id);
+    await showCategory(id);
+    console.log("Creo Alerta");
+
 }
 
 async function init() {
     await getProductos();
+    await getCategorias();
 }
 
 init();
@@ -221,4 +328,11 @@ function createAlert(title, msj, status) {
         </button>
     </div> 
     `;
+}
+
+
+module.exports = {
+    createAlert,
+    createToast,
+    main,
 }

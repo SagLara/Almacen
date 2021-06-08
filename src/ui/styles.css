@@ -15,13 +15,21 @@
     justify-items: center;
 }
 
-.card-header {
+.prods {
     display: flex;
     justify-content: space-evenly;
     word-break: break-word;
 }
 
-.card-footer {
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-footer,
+.opcions {
     padding: 0;
     margin: 0;
     display: flex;
@@ -34,7 +42,7 @@
     overflow-y: scroll;
 }
 
-.prod-info {
+.info {
     font-weight: bold;
     font-size: 18px;
 }

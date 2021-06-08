@@ -10,8 +10,10 @@ const fs = require('fs');
 function writeDoc(contenido) {
     contenido += "\n";
 
-    fs.appendFile('src/utils/sentencias.txt', contenido, (err, e) => {
-        e.preventDefault();
+    fs.appendFile('src/utils/sentencias.txt', contenido, (err, evento) => {
+        console.log("Escribo");
+        //console.log(evento);
+        //evento.preventDefault();
         if (err) {
             throw ('No se pudo crear');
         }
@@ -57,8 +59,6 @@ function docExist() {
 
      }); */
 }
-//const btnAdd = document.getElementById('newCategoria');
-//btnAdd.addEventListener('click', loadDoc);
 
 function loadDoc() {
 

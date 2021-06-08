@@ -1,1 +1,5 @@
-INSERT INTO producto SET NOMBRE='BonBonBum',PRECIO=300,STOCK=4,MARCA='',DESCRIPCION='',REFERENCIA='',ID_CATEGORIA=1;
+INSERT INTO producto SET NOMBRE='Bon Bon Bum',PRECIO=300,STOCK=20,MARCA='Colombina',DESCRIPCION='Dulce de caramelo de diferentes sabores con goma masticable por dentro',REFERENCIA='Chupeta',ID_CATEGORIA=1;
+INSERT INTO categoria SET NOMBRE='Navidad',DESCRIPCION='Productos que tengan  relación con la epoca navideña de diciembre.';
+INSERT INTO categoria SET NOMBRE='Celebraciones',DESCRIPCION='Productos relacionados a celebraciones de fiestas, reuniones o eventos especiales.';
+UPDATE producto SET NOMBRE='Bon Bon Bum',PRECIO=300,STOCK=21,MARCA='Colombina',DESCRIPCION='Dulce de caramelo de diferentes sabores con goma masticable por dentro',REFERENCIA='Chupeta',ID_CATEGORIA=1  WHERE ID_PRODUCTO =1;
+INSERT INTO producto SET NOMBRE='Bolsa de Regalo',PRECIO=2500,STOCK=6,MARCA='',DESCRIPCION='',REFERENCIA='Tamaño Grande',ID_CATEGORIA=6;
