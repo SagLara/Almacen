@@ -1,18 +1,69 @@
 {
-    "name": "Almacen",
+    "name": "almacen-jis",
+    "productName": "Almacen JIS",
     "version": "1.0.0",
     "description": "-----",
     "main": "src/index.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "start-forge": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "publish": "electron-forge publish",
+        "lint": "echo \"No linting configured\"",
+        "build-installer": "electron-builder --x64 --ia32"
+    },
+    "build": {
+        "appId": "almacen-jis",
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "src/ui/assets/icon.ico",
+            "requestedExecutionLevel": "requireAdministrator"
+        },
+        "nsis": {
+            "installerIcon": "src/ui/assets/icon.ico",
+            "uninstallerIcon": "src/ui/assets/icon.ico",
+            "uninstallDisplayName": "Almacen JIS",
+            "license": "license.txt",
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        }
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/SagLara/Almacen.git"
     },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": {
+        "name": "Sergio Gomez",
+        "email": "laragsergio1803@gmail.com"
+    },
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "cpu_data"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {}
+                }
+            ]
+        }
+    },
     "bugs": {
         "url": "https://github.com/SagLara/Almacen/issues"
     },
@@ -21,13 +72,22 @@
         "@popperjs/core": "^2.9.2",
         "bootstrap": "^4.6.0",
         "bootstrap-icons": "^1.5.0",
-        "electron": "^12.0.5",
+        "dotenv": "^10.0.0",
         "electron-alert": "^0.1.11",
         "electron-reload": "^1.5.0",
         "jquery": "^3.6.0",
+        "os-utils": "0.0.14",
         "popper.js": "^1.16.1",
         "promise-mysql": "^5.0.3",
         "python-shell": "^3.0.0",
         "xmlhttprequest": "^1.8.0"
+    },
+    "devDependencies": {
+        "electron": "^12.0.5",
+        "electron-builder": "^22.10.5",
+        "@electron-forge/cli": "^6.0.0-beta.57",
+        "@electron-forge/maker-deb": "^6.0.0-beta.57",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
+        "@electron-forge/maker-zip": "^6.0.0-beta.57"
     }
 }

@@ -48,7 +48,7 @@ async function crearProducto(producto) {
     producto.stock = parseInt(producto.stock);
     producto.id_categoria = parseInt(producto.id_categoria);
 
-    const res = await conn.query('INSERT INTO producto SET ?', producto);
+    const res = await conn.query('INSERT INTO PRODUCTO SET ?', producto);
 
     producto.id = res.insertId;
 
@@ -63,7 +63,7 @@ async function crearProducto(producto) {
 async function crearCategoria(categoria) {
     const conn = await getConnection();
 
-    const res = await conn.query('INSERT INTO categoria SET ?', categoria);
+    const res = await conn.query('INSERT INTO CATEGORIA SET ?', categoria);
 
     categoria.id = res.insertId;
 
@@ -77,27 +77,27 @@ async function crearCategoria(categoria) {
 
 async function getProductoById(id) {
     const conn = await getConnection();
-    const res = await conn.query('SELECT * FROM producto WHERE ID_PRODUCTO = ?', id);
+    const res = await conn.query('SELECT * FROM PRODUCTO WHERE ID_PRODUCTO = ?', id);
     console.log(res);
     return res[0];
 }
 
 async function getCategoriaById(id) {
     const conn = await getConnection();
-    const res = await conn.query('SELECT * FROM categoria WHERE ID_CATEGORIA= ?', id);
+    const res = await conn.query('SELECT * FROM CATEGORIA WHERE ID_CATEGORIA= ?', id);
     console.log(res);
     return res[0];
 }
 
 async function getProductos() {
     const conn = await getConnection();
-    const results = await conn.query('SELECT * FROM producto ORDER BY ID_PRODUCTO DESC LIMIT 25');
+    const results = await conn.query('SELECT * FROM PRODUCTO ORDER BY ID_PRODUCTO DESC LIMIT 25');
     return results;
 }
 
 async function getCategorias() {
     const conn = await getConnection();
-    const categorias = await conn.query('SELECT * FROM categoria ORDER BY ID_CATEGORIA DESC');
+    const categorias = await conn.query('SELECT * FROM CATEGORIA ORDER BY ID_CATEGORIA DESC');
     return categorias;
 }
 
@@ -120,28 +120,28 @@ async function deleteProducto(id) {
         }
     });
     const conn = await getConnection();
-    const result = await conn.query('DELETE FROM producto WHERE ID_PRODUCTO = ?', id);
+    const result = await conn.query('DELETE FROM PRODUCTO WHERE ID_PRODUCTO = ?', id);
     console.log("del", result);
     return result;
 }
 
 async function updateProducto(id, producto) {
     const conn = await getConnection();
-    const result = await conn.query('UPDATE producto SET ? WHERE ID_PRODUCTO = ?', [producto, id]);
+    const result = await conn.query('UPDATE PRODUCTO SET ? WHERE ID_PRODUCTO = ?', [producto, id]);
     console.log(result);
     return result;
 }
 
 async function deleteCategoria(id) {
     const conn = await getConnection();
-    const resCat = await conn.query('DELETE FROM categoria WHERE ID_CATEGORIA = ?', id);
+    const resCat = await conn.query('DELETE FROM CATEGORIA WHERE ID_CATEGORIA = ?', id);
     console.log("del", resCat);
     return resCat;
 }
 
 async function updateCategoria(id, categoria) {
     const conn = await getConnection();
-    const result = await conn.query('UPDATE categoria SET ? WHERE ID_CATEGORIA = ?', [categoria, id]);
+    const result = await conn.query('UPDATE CATEGORIA SET ? WHERE ID_CATEGORIA = ?', [categoria, id]);
     console.log(result);
     return result;
 }

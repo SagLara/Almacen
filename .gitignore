@@ -1,5 +1,7 @@
 # Ignore the node_modules directory
 node_modules/
+dist/
 
 # Ignore the node_modules directory
 src/utils/sentencis.txt
+.env
